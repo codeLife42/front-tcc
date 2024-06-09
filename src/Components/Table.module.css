@@ -1,0 +1,95 @@
+/* Define a posicao da tabela */
+.positionTable{
+  position: absolute;
+  top: 15rem;
+  right: 15rem;
+  transform: translateY(-50%);
+  margin-top: 100px; 
+  margin-right: 50px;
+}
+.positionTable select{
+  right: 50px;
+  padding: 2px 10px 7px 2px;
+  border-radius: 5px;
+  background: var(--white);
+  box-shadow: 0 1px 3px -2px #9098A9;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+}
+/* Estiliza a tabela */
+.styledTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: var(--white);
+  border: 1px solid #ddd;
+  
+}
+.styledTable th,
+.styledTable td {
+  padding: 12px 15px;
+  text-align: left;
+}
+.styledTable th {
+  background-color: var(--white);
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+.styledTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.styledTable tbody tr:hover {
+  background-color: var(--white);
+}
+/* Estilizacao paginacao */
+.pagination {
+  margin-top: 10px;
+  text-align: center;
+}
+.pagination label {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color: var(--white);
+  color: #333;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+}
+.pagination label:hover {
+  background-color: var(--blue-500);
+  color:var(--white);
+}
+/* Estilizacao busca */
+.searchContainer {
+  text-align: left;
+  margin-bottom: 0.500rem;
+}
+
+.searchInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.searchButton {
+  padding: 8px 15px;
+  background-color: var(--blue-500);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.radioButtons label {
+  display: inline-block;
+  text-align: left;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}

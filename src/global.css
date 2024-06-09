@@ -1,0 +1,34 @@
+:root{
+    --white: #FFFFFF;
+    --blue-500: #0094FF;
+    --blue-1000: #5A80FB;
+    --gray-500: #EDEDED;
+    --purple-500: #936FFA
+}
+
+:focus{
+    outline: transparent;
+    box-shadow: 0 0 0 2px var(--purple-500);
+}
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: var(--white);
+    color: var(--gray-300);
+    -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.buttonNovo{
+    background-color: red;
+}
