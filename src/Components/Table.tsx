@@ -8,12 +8,13 @@ export function Table() {
   const [carteira, setCarteira] = useState("Todas");
   const [pesquisa, setPesquisa] = useState("");
 
-  const handleCarteiraChange = (event) => {
+  const handleCarteiraChange = (event: any) => {
     setCarteira(event.target.value);
   };
 
-  const handlePesquisaChange = (event) => {
+  const handlePesquisaChange = (event: any) => {
     setPesquisa(event.target.value);
+    console.log(pesquisa);
   };
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export function Table() {
     return <p>Carregando...</p>;
   }
 
-  const pesquisaCliente = sinistroCliente.filter((sinistro) => {
+  const filteredClientes = sinistroCliente.filter((sinistro) => {
     const nomeCliente = sinistro.nome.toLowerCase();
     const barraPesquisa = pesquisa.toLocaleLowerCase();
 
@@ -47,19 +48,10 @@ export function Table() {
           id="search-input"
           placeholder="Pesquisar cliente..."
           value={pesquisa}
-          onChange={pesquisaCliente}
+          onChange={handlePesquisaChange}
         />
-        <button className={styles.searchButton} id="search-button">
-          Pesquisar
-        </button>
       </div>
-      <div className={styles.radioButtons}>
-        <input type="radio" id="cpf-radio" name="search-option" value="cpf" />
-        <label>CPF</label>
-        <input type="radio" id="nome-radio" name="search-option" value="nome" />
-        <label>Nome</label>
-      </div>
-
+      <p>Carteiras: </p>
       <select
         className={styles.customSelect}
         value={carteira}
@@ -81,7 +73,7 @@ export function Table() {
           </tr>
         </thead>
         <tbody>
-          {sinistroCliente.map((sinistro) => {
+          {filteredClientes.map((sinistro) => {
             if (sinistro.carteira === carteira) {
               console.log(carteira);
               return (
