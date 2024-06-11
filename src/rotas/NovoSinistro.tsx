@@ -22,7 +22,7 @@ export function NovoSinistro() {
 
   const handlePesquisaChange = (event: any) => {
     setPesquisa(event.target.value);
-    console.log(pesquisa);
+    console.log(seguroCliente);
   };
 
   const filteredClientes = seguroCliente.filter((seguro) => {
@@ -56,16 +56,23 @@ export function NovoSinistro() {
           </tr>
         </thead>
         <tbody>
-          {filteredClientes.map((cliente) => (
-            <tr key={cliente.cliente_cpf}>
-              <td>{cliente.cliente_cpf}</td>
-              <td>{cliente.cliente_nome}</td>
-              <td>{cliente.seguro_nome}</td>
-              <td>
-                <a href="">Novo Sinistro</a>
-              </td>
-            </tr>
-          ))}
+          {
+            //Filtrar somente os clientes com status do sinistro disponivel
+            filteredClientes.map((cliente) => {
+              if (cliente.sinistro_status === "Disponivel") {
+                return (
+                  <tr key={cliente.cliente_cpf}>
+                    <td>{cliente.cliente_cpf}</td>
+                    <td>{cliente.cliente_nome}</td>
+                    <td>{cliente.seguro_nome}</td>
+                    <td>
+                      <a href="">Novo Sinistro</a>
+                    </td>
+                  </tr>
+                );
+              }
+            })
+          }
         </tbody>
       </table>
       <Link to="/">
