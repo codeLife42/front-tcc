@@ -20,6 +20,7 @@ export function NovoSinistro() {
     setCarregando(false);
   }
 
+  //Filtro da barra de pesquisa
   const handlePesquisaChange = (event: any) => {
     setPesquisa(event.target.value);
     console.log(seguroCliente);
@@ -59,6 +60,7 @@ export function NovoSinistro() {
           {
             //Filtrar somente os clientes com status do sinistro disponivel
             filteredClientes.map((cliente) => {
+              console.log(cliente);
               if (cliente.sinistro_status === "Disponivel") {
                 return (
                   <tr key={cliente.cliente_cpf}>
@@ -66,7 +68,9 @@ export function NovoSinistro() {
                     <td>{cliente.cliente_nome}</td>
                     <td>{cliente.seguro_nome}</td>
                     <td>
-                      <a href="">Novo Sinistro</a>
+                      <Link to={`/sinistro/${cliente.cliente_id}`}>
+                        Novo Sinistro
+                      </Link>
                     </td>
                   </tr>
                 );

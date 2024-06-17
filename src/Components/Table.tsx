@@ -74,20 +74,22 @@ export function Table() {
         </thead>
         <tbody>
           {filteredClientes.map((sinistro) => {
-            if (sinistro.carteira === carteira) {
-              console.log(carteira);
-              return (
-                <tr key={sinistro.id}>
-                  <td>{sinistro.cpf}</td>
-                  <td>{sinistro.carteira}</td>
-                  <td>{sinistro.nome}</td>
-                  <td>
-                    <a href="">{sinistro.status}</a>
-                  </td>
-                </tr>
-              );
+            console.log(sinistro.status !== "Disponivel");
+            if (sinistro.status !== "Disponivel") {
+              if (sinistro.carteira === carteira) {
+                return (
+                  <tr key={sinistro.id}>
+                    <td>{sinistro.cpf}</td>
+                    <td>{sinistro.carteira}</td>
+                    <td>{sinistro.nome}</td>
+                    <td>
+                      <a href="">{sinistro.status}</a>
+                    </td>
+                  </tr>
+                );
+              }
             }
-            if (carteira === "Todas") {
+            if (carteira === "Todas" && sinistro.status !== "Disponivel") {
               return (
                 <tr key={sinistro.id}>
                   <td>{sinistro.cpf}</td>
