@@ -26,6 +26,15 @@ export function NovoSinistro() {
     console.log(seguroCliente);
   };
 
+  //Altera no banco de dados o status do sinistro ao clicar no botao novo sinistro
+  const handleNovoSinistro = async (clienteId: String, sinistroId: String) => {
+    try {
+      window.location.href = "/sinistro/" + clienteId;
+    } catch (error) {
+      console.log("Erro ao criar sinistro", error);
+    }
+  };
+
   const filteredClientes = seguroCliente.filter((seguro) => {
     const nomeCliente = seguro.cliente_nome.toLowerCase();
     const barraPesquisa = pesquisa.toLocaleLowerCase();
@@ -68,9 +77,16 @@ export function NovoSinistro() {
                     <td>{cliente.cliente_nome}</td>
                     <td>{cliente.seguro_nome}</td>
                     <td>
-                      <Link to={`/sinistro/${cliente.cliente_id}`}>
+                      <button
+                        onClick={() =>
+                          handleNovoSinistro(
+                            cliente.cliente_id,
+                            cliente.sinistro_id
+                          )
+                        }
+                      >
                         Novo Sinistro
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 );

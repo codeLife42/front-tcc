@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Table.module.css";
 import { getSinistroCliente } from "../servicos/sinistrocliente";
+import { Link } from "react-router-dom";
 
 export function Table() {
   const [sinistroCliente, setSinistroCliente] = useState<any[]>([]);
@@ -74,6 +75,7 @@ export function Table() {
         </thead>
         <tbody>
           {filteredClientes.map((sinistro) => {
+            console.log(sinistro);
             console.log(sinistro.status !== "Disponivel");
             if (sinistro.status !== "Disponivel") {
               if (sinistro.carteira === carteira) {
@@ -83,7 +85,9 @@ export function Table() {
                     <td>{sinistro.carteira}</td>
                     <td>{sinistro.nome}</td>
                     <td>
-                      <a href="">{sinistro.status}</a>
+                      <Link to={`/sinistro/${sinistro.id_cliente}`}>
+                        {sinistro.status}
+                      </Link>
                     </td>
                   </tr>
                 );
@@ -96,7 +100,9 @@ export function Table() {
                   <td>{sinistro.carteira}</td>
                   <td>{sinistro.nome}</td>
                   <td>
-                    <a href="">{sinistro.status}</a>
+                    <Link to={`/sinistro/${sinistro.id_cliente}`}>
+                      {sinistro.status}
+                    </Link>
                   </td>
                 </tr>
               );
