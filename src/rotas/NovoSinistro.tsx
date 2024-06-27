@@ -3,6 +3,7 @@ import { Header } from "../Components/Header";
 import "../global.css";
 import { useEffect, useState } from "react";
 import { getSeguroCliente } from "../servicos/segurocliente";
+import { patchSinistroCliente } from "../servicos/sinistro";
 
 export function NovoSinistro() {
   const [seguroCliente, setSeguroCliente] = useState<any[]>([]);
@@ -29,6 +30,7 @@ export function NovoSinistro() {
   //Altera no banco de dados o status do sinistro ao clicar no botao novo sinistro
   const handleNovoSinistro = async (clienteId: String, sinistroId: String) => {
     try {
+      patchSinistroCliente(sinistroId);
       window.location.href = "/sinistro/" + clienteId;
     } catch (error) {
       console.log("Erro ao criar sinistro", error);
