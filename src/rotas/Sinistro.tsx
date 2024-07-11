@@ -14,14 +14,17 @@ export function Sinistro() {
 
   const [activeTab, setActiveTab] = useState("aba1"); // Estado para controlar a aba ativa
 
-  const [documentName, setDocumentName] = useState(String);
+  //Seleciona o tipo de documento (Certidao Obito, documentacao sinistrado etc)
+  const [documentType, setDocumentType] = useState(String);
+
+  const [idSinistro, setIdSinistro] = useState(String);
+
+  console.log(clienteFiltrado);
 
   // Função para alternar entre as abas
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
-
-  console.log(clienteFiltrado);
 
   useEffect(() => {
     if (id.id) {
@@ -38,14 +41,22 @@ export function Sinistro() {
 
   // Função para lidar com a seleção de arquivo
   const handleFileSelection = (e) => {
-    setSelectedFile(e.target.files[0]);
-    setShowFileModal(false); // Fecha o modal após selecionar o arquivo
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
+      setSelectedFile(selectedFile);
+      console.log(e);
+      setShowFileModal(false);
+    }
+
+    // Fecha o modal após selecionar o arquivo
   };
 
   // Função para abrir o modal de seleção de arquivo
   const openFileModal = (documentName: any) => {
     setShowFileModal(true);
-    setDocumentName(documentName);
+    setDocumentType(documentName);
+    setIdSinistro(clienteFiltrado.id);
   };
 
   // Função para fechar o modal de seleção de arquivo
@@ -269,7 +280,8 @@ export function Sinistro() {
         showModal={showFileModal}
         onClose={closeFileModal}
         onFileSelect={handleFileSelection}
-        documentName={documentName}
+        documentType={documentType}
+        idSinistro={idSinistro}
       />
     </div>
   );
