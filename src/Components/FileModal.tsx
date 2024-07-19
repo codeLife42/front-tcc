@@ -15,7 +15,14 @@ const FileModal = ({ showModal, onClose, documentType, idSinistro }: any) => {
   ) {
     try {
       if (file && documentType && idSinistro) {
-        const responseServer = await uploadFile(file, documentType, idSinistro);
+        const responseServer = await uploadFile(
+          file,
+          documentType,
+          idSinistro,
+          file.name
+        );
+
+        window.close();
 
         console.log(responseServer);
       } else {
@@ -56,14 +63,16 @@ const FileModal = ({ showModal, onClose, documentType, idSinistro }: any) => {
           <h2>Selecionar Arquivo {documentType.toUpperCase()}</h2>
           <p>{idSinistro}</p>
           <input type="file" required onChange={handleFileSelection} />
-          <button className={styles.closeButton} onClick={onClose}>
-            X
-          </button>
           <button
             type="submit"
-            onClick={() => handleSaveFile(file, documentType, idSinistro)}
+            onClick={() =>
+              handleSaveFile(file as any, documentType, idSinistro)
+            }
           >
             Salvar
+          </button>
+          <button className={styles.closeButton} onClick={onClose}>
+            X
           </button>
         </div>
       </div>

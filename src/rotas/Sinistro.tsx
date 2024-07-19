@@ -22,7 +22,7 @@ export function Sinistro() {
   console.log(clienteFiltrado);
 
   // Função para alternar entre as abas
-  const handleTabClick = (tabName) => {
+  const handleTabClick = (tabName: any) => {
     setActiveTab(tabName);
   };
 
@@ -102,7 +102,6 @@ export function Sinistro() {
                 <thead>
                   <tr>
                     <th>Documento</th>
-                    <th>Enviado</th>
                     <th>Arquivo</th>
                     <th>Data Emissao</th>
                     <th>Detalhes</th>
@@ -111,9 +110,7 @@ export function Sinistro() {
                 <tbody>
                   <tr>
                     <td>Certidão de óbito</td>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+
                     <td>
                       <button
                         type="button"
@@ -131,9 +128,7 @@ export function Sinistro() {
                   </tr>
                   <tr>
                     <td>Documentação identificação sinistrado</td>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+
                     <td>
                       <button
                         type="button"
@@ -151,9 +146,7 @@ export function Sinistro() {
                   </tr>
                   <tr>
                     <td>Declaração herdeiros legais</td>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+
                     <td>
                       <button
                         type="button"
@@ -178,7 +171,6 @@ export function Sinistro() {
                 <thead>
                   <tr>
                     <th>Documento</th>
-                    <th>Enviado</th>
                     <th>Arquivo</th>
                     <th>Data Emissao</th>
                     <th>Detalhes</th>
@@ -187,9 +179,7 @@ export function Sinistro() {
                 <tbody>
                   <tr>
                     <td>Ducumento identificação beneficiário</td>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+
                     <td>
                       <button
                         type="button"
@@ -207,9 +197,7 @@ export function Sinistro() {
                   </tr>
                   <tr>
                     <td>Comprovante de endereço</td>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+
                     <td>
                       <button
                         type="button"
@@ -234,7 +222,6 @@ export function Sinistro() {
                 <thead>
                   <tr>
                     <th>Documento</th>
-                    <th>Enviado</th>
                     <th>Arquivo</th>
                     <th>Data Emissao</th>
                     <th>Detalhes</th>
@@ -243,9 +230,7 @@ export function Sinistro() {
                 <tbody>
                   <tr>
                     <td>Documentação complementar</td>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+
                     <td>
                       <button
                         type="button"
