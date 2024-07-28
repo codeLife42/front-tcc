@@ -75,8 +75,6 @@ export function Table() {
         </thead>
         <tbody>
           {filteredClientes.map((sinistro) => {
-            console.log(sinistro);
-            console.log(sinistro.status !== "Disponivel");
             if (sinistro.status !== "Disponivel") {
               if (sinistro.carteira === carteira) {
                 return (

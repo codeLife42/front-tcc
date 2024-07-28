@@ -19,7 +19,10 @@ export function Sinistro() {
 
   const [idSinistro, setIdSinistro] = useState(String);
 
-  console.log(clienteFiltrado);
+  //Seleciona o tipo de modal
+  const [modalTipo, setModalTipo] = useState("");
+
+  //console.log(clienteFiltrado);
 
   // Função para alternar entre as abas
   const handleTabClick = (tabName: any) => {
@@ -53,10 +56,11 @@ export function Sinistro() {
   };
 
   // Função para abrir o modal de seleção de arquivo
-  const openFileModal = (documentName: any) => {
+  const openFileModal = (documentName: any, modalTipo: String) => {
     setShowFileModal(true);
     setDocumentType(documentName);
-    setIdSinistro(clienteFiltrado.id);
+    setIdSinistro(clienteFiltrado.id_sinistro);
+    setModalTipo(modalTipo);
   };
 
   // Função para fechar o modal de seleção de arquivo
@@ -114,7 +118,9 @@ export function Sinistro() {
                     <td>
                       <button
                         type="button"
-                        onClick={() => openFileModal("certidao-obito")}
+                        onClick={() =>
+                          openFileModal("certidao-obito", "salvar-arquivos")
+                        }
                       >
                         Selecionar Arquivo
                       </button>
@@ -123,7 +129,15 @@ export function Sinistro() {
                       <input type="date" />
                     </td>
                     <td>
-                      <a href="#">Exibir informações</a>
+                      <a
+                        href="#"
+                        type="Link"
+                        onClick={() =>
+                          openFileModal("certidao-obito", "exibir-arquivos")
+                        }
+                      >
+                        Exibir informações
+                      </a>
                     </td>
                   </tr>
                   <tr>
@@ -132,7 +146,9 @@ export function Sinistro() {
                     <td>
                       <button
                         type="button"
-                        onClick={() => openFileModal("id-sinistrado")}
+                        onClick={() =>
+                          openFileModal("id-sinistrado", "salvar-arquivos")
+                        }
                       >
                         Selecionar Arquivo
                       </button>
@@ -141,7 +157,15 @@ export function Sinistro() {
                       <input type="date" />
                     </td>
                     <td>
-                      <a href="#">Exibir informações</a>
+                      <a
+                        href="#"
+                        type="Link"
+                        onClick={() =>
+                          openFileModal("id-sinistrado", "exibir-arquivos")
+                        }
+                      >
+                        Exibir informações
+                      </a>
                     </td>
                   </tr>
                   <tr>
@@ -150,7 +174,12 @@ export function Sinistro() {
                     <td>
                       <button
                         type="button"
-                        onClick={() => openFileModal("declaracao-herdeiros")}
+                        onClick={() =>
+                          openFileModal(
+                            "declaracao-herdeiros",
+                            "salvar-arquivos"
+                          )
+                        }
                       >
                         Selecionar Arquivo
                       </button>
@@ -159,7 +188,18 @@ export function Sinistro() {
                       <input type="date" />
                     </td>
                     <td>
-                      <a href="#">Exibir informações</a>
+                      <a
+                        href="#"
+                        type="Link"
+                        onClick={() =>
+                          openFileModal(
+                            "declaracao-herdeiros",
+                            "exibir-arquivos"
+                          )
+                        }
+                      >
+                        Exibir informações
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -183,7 +223,9 @@ export function Sinistro() {
                     <td>
                       <button
                         type="button"
-                        onClick={() => openFileModal("id-beneficiario")}
+                        onClick={() =>
+                          openFileModal("id-beneficiario", "salvar-arquivos")
+                        }
                       >
                         Selecionar Arquivo
                       </button>
@@ -192,7 +234,15 @@ export function Sinistro() {
                       <input type="date" />
                     </td>
                     <td>
-                      <a href="#">Exibir informações</a>
+                      <a
+                        href="#"
+                        type="Link"
+                        onClick={() =>
+                          openFileModal("id-beneficiario", "exibir-arquivos")
+                        }
+                      >
+                        Exibir informações
+                      </a>
                     </td>
                   </tr>
                   <tr>
@@ -201,7 +251,12 @@ export function Sinistro() {
                     <td>
                       <button
                         type="button"
-                        onClick={() => openFileModal("comprovante-endereco")}
+                        onClick={() =>
+                          openFileModal(
+                            "comprovante-endereco",
+                            "salvar-arquivos"
+                          )
+                        }
                       >
                         Selecionar Arquivo
                       </button>
@@ -210,7 +265,18 @@ export function Sinistro() {
                       <input type="date" />
                     </td>
                     <td>
-                      <a href="#">Exibir informações</a>
+                      <a
+                        href="#"
+                        type="Link"
+                        onClick={() =>
+                          openFileModal(
+                            "comprovante-endereco",
+                            "exibir-arquivos"
+                          )
+                        }
+                      >
+                        Exibir informações
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -235,7 +301,10 @@ export function Sinistro() {
                       <button
                         type="button"
                         onClick={() =>
-                          openFileModal("documentacao-complementar")
+                          openFileModal(
+                            "documentacao-complementar",
+                            "salvar-arquivos"
+                          )
                         }
                       >
                         Selecionar Arquivo
@@ -245,7 +314,18 @@ export function Sinistro() {
                       <input type="date" />
                     </td>
                     <td>
-                      <a href="#">Exibir informações</a>
+                      <a
+                        href="#"
+                        type="Link"
+                        onClick={() =>
+                          openFileModal(
+                            "documentacao-complementar",
+                            "exibir-arquivos"
+                          )
+                        }
+                      >
+                        Exibir informações
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -267,6 +347,7 @@ export function Sinistro() {
         onFileSelect={handleFileSelection}
         documentType={documentType}
         idSinistro={idSinistro}
+        modalTipo={modalTipo}
       />
     </div>
   );

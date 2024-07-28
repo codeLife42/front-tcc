@@ -5,7 +5,6 @@ const sinistroAPI = axios.create({
 });
 
 async function patchSinistroCliente(idSinistro: String) {
-  console.log(idSinistro);
 
   const response = await sinistroAPI.patch("/", idSinistro, {
     headers: {
