@@ -34,20 +34,15 @@ async function uploadFile(
   }
 }
 
-async function getFiles(idSinistro: String, tipoArquivo: String){
-  try {
-    const response = await arquivoAPI.get("/", {
-      params: {
-        id_sinistro: idSinistro,
-        tipo_arquivo: tipoArquivo,
-      },
-    });
+async function getFiles(idSinistro: String, tipoArquivo: String) {
+  const response = await arquivoAPI.get("/", {
+    params: {
+      id_sinistro: idSinistro,
+      tipo_arquivo: tipoArquivo,
+    },
+  });
 
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return response.data;
 }
 
 export { uploadFile, getFiles };

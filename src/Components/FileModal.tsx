@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import styles from "./FileModal.module.css";
 import { useEffect, useState } from "react";
 import { getFiles, uploadFile } from "../servicos/arquivo";
-import { Link } from "react-router-dom";
 
 const FileModal = ({
   showModal,
@@ -20,6 +19,8 @@ const FileModal = ({
 
   async function handleGetFiles(idSinistro: String, documentType: String) {
     setCarregando(true);
+
+    console.log(documentType);
 
     const arquivosResponse = await getFiles(idSinistro, documentType);
 
@@ -55,7 +56,7 @@ const FileModal = ({
     if (modalTipo === "exibir-arquivos") {
       handleGetFiles(idSinistro, documentType);
     }
-  }, [modalTipo]);
+  }, [modalTipo, documentType]);
 
   function handleFileSelection(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target && e.target.files && e.target.files.length > 0) {
@@ -98,8 +99,7 @@ const FileModal = ({
   } else if (modalTipo === "exibir-arquivos") {
     if (carregando) <p>Carregando...</p>;
 
-    if (!carregando) {
-      console.log(arquivos);
+    if (!carregando && arquivos.length !== 0) {
       return (
         <form action="#">
           <div className={styles.modal}>
@@ -108,19 +108,40 @@ const FileModal = ({
                 &times;
               </span>
               <h2>Arquivos enviados</h2>
-              {arquivos.map((arquivo) => {
+
+              {arquivos.map((arquivo, index) => {
                 //Definir onde fica a pasta uploads
                 const filePath = `http://localhost:3333/uploads/${arquivo.arquivo}`;
 
-                console.log(filePath);
                 return (
                   <div>
-                    <a href={filePath} key={arquivo.arquivo} download>
+                    <a href={filePath} key={index} download>
                       {arquivo.nome}
                     </a>
                   </div>
                 );
               })}
+              <button className={styles.closeButton} onClick={onClose}>
+                X
+              </button>
+            </div>
+          </div>
+        </form>
+      );
+    } else if (
+      !carregando &&
+      arquivos.length == 0 &&
+      modalTipo === "exibir-arquivos"
+    ) {
+      return (
+        <form action="#">
+          <div className={styles.modal}>
+            <div className={styles["modal-content"]}>
+              <span className={styles.close} onClick={onClose}>
+                &times;
+              </span>
+              <h2>Arquivos enviados</h2>
+              <p>Nenhum arquivo encontrado!</p>
               <button className={styles.closeButton} onClick={onClose}>
                 X
               </button>

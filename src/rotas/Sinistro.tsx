@@ -22,7 +22,9 @@ export function Sinistro() {
   //Seleciona o tipo de modal
   const [modalTipo, setModalTipo] = useState("");
 
-  //console.log(clienteFiltrado);
+  const [carregando, setCarregando] = useState(true);
+
+  console.log(clienteFiltrado);
 
   // Função para alternar entre as abas
   const handleTabClick = (tabName: any) => {
@@ -34,12 +36,14 @@ export function Sinistro() {
       const idParametroLink = id.id.toString();
       setIdParametro(idParametroLink);
       fetchClienteFiltrado(idParametroLink);
+      setDocumentType(documentType);
     }
-  }, [id]);
+  }, [id, documentType]);
 
   async function fetchClienteFiltrado(id: String) {
     const clienteFiltrados = await getCliente(id);
     setClienteFiltrado(clienteFiltrados);
+    setCarregando(false);
   }
 
   // Função para lidar com a seleção de arquivo
@@ -57,10 +61,10 @@ export function Sinistro() {
 
   // Função para abrir o modal de seleção de arquivo
   const openFileModal = (documentName: any, modalTipo: String) => {
-    setShowFileModal(true);
     setDocumentType(documentName);
     setIdSinistro(clienteFiltrado.id_sinistro);
     setModalTipo(modalTipo);
+    setShowFileModal(true);
   };
 
   // Função para fechar o modal de seleção de arquivo
@@ -68,287 +72,289 @@ export function Sinistro() {
     setShowFileModal(false);
   };
 
-  return (
-    <div>
-      <Header></Header>
+  if (!carregando) {
+    return (
       <div>
+        <Header></Header>
         <div>
-          <h3>Sinistro - {clienteFiltrado.nome}</h3>
-        </div>
-        <div>
-          <p>DOCUMENTAÇÃO</p>
-        </div>
-        <form action="#">
-          <div className="App">
-            <div className="tabs">
-              <button
-                className={activeTab === "aba1" ? "active" : ""}
-                onClick={() => handleTabClick("aba1")}
-              >
-                Documentação Sinistro
-              </button>
-              <button
-                className={activeTab === "aba2" ? "active" : ""}
-                onClick={() => handleTabClick("aba2")}
-              >
-                Documentação Beneficiário
-              </button>
-              <button
-                className={activeTab === "aba3" ? "active" : ""}
-                onClick={() => handleTabClick("aba3")}
-              >
-                Documentação complementar
-              </button>
-            </div>
-
-            {activeTab === "aba1" && (
-              <table border="1">
-                <thead>
-                  <tr>
-                    <th>Documento</th>
-                    <th>Arquivo</th>
-                    <th>Data Emissao</th>
-                    <th>Detalhes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Certidão de óbito</td>
-
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openFileModal("certidao-obito", "salvar-arquivos")
-                        }
-                      >
-                        Selecionar Arquivo
-                      </button>
-                    </td>
-                    <td>
-                      <input type="date" />
-                    </td>
-                    <td>
-                      <a
-                        href="#"
-                        type="Link"
-                        onClick={() =>
-                          openFileModal("certidao-obito", "exibir-arquivos")
-                        }
-                      >
-                        Exibir informações
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Documentação identificação sinistrado</td>
-
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openFileModal("id-sinistrado", "salvar-arquivos")
-                        }
-                      >
-                        Selecionar Arquivo
-                      </button>
-                    </td>
-                    <td>
-                      <input type="date" />
-                    </td>
-                    <td>
-                      <a
-                        href="#"
-                        type="Link"
-                        onClick={() =>
-                          openFileModal("id-sinistrado", "exibir-arquivos")
-                        }
-                      >
-                        Exibir informações
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Declaração herdeiros legais</td>
-
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openFileModal(
-                            "declaracao-herdeiros",
-                            "salvar-arquivos"
-                          )
-                        }
-                      >
-                        Selecionar Arquivo
-                      </button>
-                    </td>
-                    <td>
-                      <input type="date" />
-                    </td>
-                    <td>
-                      <a
-                        href="#"
-                        type="Link"
-                        onClick={() =>
-                          openFileModal(
-                            "declaracao-herdeiros",
-                            "exibir-arquivos"
-                          )
-                        }
-                      >
-                        Exibir informações
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            )}
-
-            {activeTab === "aba2" && (
-              <table border="1">
-                <thead>
-                  <tr>
-                    <th>Documento</th>
-                    <th>Arquivo</th>
-                    <th>Data Emissao</th>
-                    <th>Detalhes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Ducumento identificação beneficiário</td>
-
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openFileModal("id-beneficiario", "salvar-arquivos")
-                        }
-                      >
-                        Selecionar Arquivo
-                      </button>
-                    </td>
-                    <td>
-                      <input type="date" />
-                    </td>
-                    <td>
-                      <a
-                        href="#"
-                        type="Link"
-                        onClick={() =>
-                          openFileModal("id-beneficiario", "exibir-arquivos")
-                        }
-                      >
-                        Exibir informações
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Comprovante de endereço</td>
-
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openFileModal(
-                            "comprovante-endereco",
-                            "salvar-arquivos"
-                          )
-                        }
-                      >
-                        Selecionar Arquivo
-                      </button>
-                    </td>
-                    <td>
-                      <input type="date" />
-                    </td>
-                    <td>
-                      <a
-                        href="#"
-                        type="Link"
-                        onClick={() =>
-                          openFileModal(
-                            "comprovante-endereco",
-                            "exibir-arquivos"
-                          )
-                        }
-                      >
-                        Exibir informações
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            )}
-
-            {activeTab === "aba3" && (
-              <table border="1">
-                <thead>
-                  <tr>
-                    <th>Documento</th>
-                    <th>Arquivo</th>
-                    <th>Data Emissao</th>
-                    <th>Detalhes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Documentação complementar</td>
-
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openFileModal(
-                            "documentacao-complementar",
-                            "salvar-arquivos"
-                          )
-                        }
-                      >
-                        Selecionar Arquivo
-                      </button>
-                    </td>
-                    <td>
-                      <input type="date" />
-                    </td>
-                    <td>
-                      <a
-                        href="#"
-                        type="Link"
-                        onClick={() =>
-                          openFileModal(
-                            "documentacao-complementar",
-                            "exibir-arquivos"
-                          )
-                        }
-                      >
-                        Exibir informações
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            )}
+          <div>
+            <h3>Sinistro - {clienteFiltrado.nome}</h3>
           </div>
-        </form>
-        <button>Enviar para análise</button>
-      </div>
-      <div>
-        <Link to="/novo-sinistro">
-          <button>Voltar</button>
-        </Link>
-      </div>
+          <div>
+            <p>DOCUMENTAÇÃO</p>
+          </div>
+          <form action="#">
+            <div className="App">
+              <div className="tabs">
+                <button
+                  className={activeTab === "aba1" ? "active" : ""}
+                  onClick={() => handleTabClick("aba1")}
+                >
+                  Documentação Sinistro
+                </button>
+                <button
+                  className={activeTab === "aba2" ? "active" : ""}
+                  onClick={() => handleTabClick("aba2")}
+                >
+                  Documentação Beneficiário
+                </button>
+                <button
+                  className={activeTab === "aba3" ? "active" : ""}
+                  onClick={() => handleTabClick("aba3")}
+                >
+                  Documentação complementar
+                </button>
+              </div>
 
-      <FileModal
-        showModal={showFileModal}
-        onClose={closeFileModal}
-        onFileSelect={handleFileSelection}
-        documentType={documentType}
-        idSinistro={idSinistro}
-        modalTipo={modalTipo}
-      />
-    </div>
-  );
+              {activeTab === "aba1" && (
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>Documento</th>
+                      <th>Arquivo</th>
+                      <th>Data Emissao</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Certidão de óbito</td>
+
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openFileModal("certidao-obito", "salvar-arquivos")
+                          }
+                        >
+                          Selecionar Arquivo
+                        </button>
+                      </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal("certidao-obito", "exibir-arquivos")
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Documentação identificação sinistrado</td>
+
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openFileModal("id-sinistrado", "salvar-arquivos")
+                          }
+                        >
+                          Selecionar Arquivo
+                        </button>
+                      </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          type="link"
+                          href="#"
+                          onClick={() =>
+                            openFileModal("id-sinistrado", "exibir-arquivos")
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Declaração herdeiros legais</td>
+
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openFileModal(
+                              "declaracao-herdeiros",
+                              "salvar-arquivos"
+                            )
+                          }
+                        >
+                          Selecionar Arquivo
+                        </button>
+                      </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal(
+                              "declaracao-herdeiros",
+                              "exibir-arquivos"
+                            )
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+
+              {activeTab === "aba2" && (
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>Documento</th>
+                      <th>Arquivo</th>
+                      <th>Data Emissao</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Documento identificação beneficiário</td>
+
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openFileModal("id-beneficiario", "salvar-arquivos")
+                          }
+                        >
+                          Selecionar Arquivo
+                        </button>
+                      </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal("id-beneficiario", "exibir-arquivos")
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Comprovante de endereço</td>
+
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openFileModal(
+                              "comprovante-endereco",
+                              "salvar-arquivos"
+                            )
+                          }
+                        >
+                          Selecionar Arquivo
+                        </button>
+                      </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal(
+                              "comprovante-endereco",
+                              "exibir-arquivos"
+                            )
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+
+              {activeTab === "aba3" && (
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>Documento</th>
+                      <th>Arquivo</th>
+                      <th>Data Emissao</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Documentação complementar</td>
+
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            openFileModal(
+                              "documentacao-complementar",
+                              "salvar-arquivos"
+                            )
+                          }
+                        >
+                          Selecionar Arquivo
+                        </button>
+                      </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal(
+                              "documentacao-complementar",
+                              "exibir-arquivos"
+                            )
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </form>
+          <button>Enviar para análise</button>
+        </div>
+        <div>
+          <Link to="/novo-sinistro">
+            <button>Voltar</button>
+          </Link>
+        </div>
+
+        <FileModal
+          showModal={showFileModal}
+          onClose={closeFileModal}
+          onFileSelect={handleFileSelection}
+          documentType={documentType}
+          idSinistro={idSinistro}
+          modalTipo={modalTipo}
+        />
+      </div>
+    );
+  }
 }
