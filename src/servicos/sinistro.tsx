@@ -5,7 +5,6 @@ const sinistroAPI = axios.create({
 });
 
 async function patchSinistroCliente(idSinistro: String) {
-
   const response = await sinistroAPI.patch("/", idSinistro, {
     headers: {
       "Content-Type": "application/json",
@@ -17,4 +16,18 @@ async function patchSinistroCliente(idSinistro: String) {
   }
 }
 
-export { patchSinistroCliente };
+async function patchSituacaoSinistro(idSinistro: String) {
+  console.log(idSinistro);
+
+  const response = await sinistroAPI.patch(`/${idSinistro}`, {
+    params: {
+      id_sinistro: idSinistro,
+    },
+  });
+
+  console.log("Patch Situacao Sinistro:", response);
+
+  return response.data;
+}
+
+export { patchSinistroCliente, patchSituacaoSinistro };

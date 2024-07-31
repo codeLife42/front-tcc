@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { Header } from "../Components/Header";
 import { useEffect, useState } from "react";
 import { getCliente } from "../servicos/cliente";
 import FileModal from "../Components/FileModal";
+import { patchSituacaoSinistro } from "../servicos/sinistro";
 
 export function Sinistro() {
   const id = useParams();
@@ -30,6 +31,23 @@ export function Sinistro() {
   const handleTabClick = (tabName: any) => {
     setActiveTab(tabName);
   };
+
+  //Funcao para enviar o formulario
+  async function handleSendForm(idSinistro: String) {
+    const userConfirmed = window.confirm(
+      "Voce realmente deseja enviar para analise?"
+    );
+
+    console.log("ID Sinistro: ", idSinistro);
+
+    if (userConfirmed) {
+      const serverResponse = await patchSituacaoSinistro(idSinistro);
+
+      alert(serverResponse);
+
+      //window.location.href = "http://localhost:5173/";
+    }
+  }
 
   useEffect(() => {
     if (id.id) {
@@ -338,7 +356,9 @@ export function Sinistro() {
               )}
             </div>
           </form>
-          <button>Enviar para análise</button>
+          <button onClick={() => handleSendForm(clienteFiltrado.id_sinistro)}>
+            Enviar para análise
+          </button>
         </div>
         <div>
           <Link to="/novo-sinistro">

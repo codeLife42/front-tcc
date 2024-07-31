@@ -45,4 +45,6 @@ async function getFiles(idSinistro: String, tipoArquivo: String) {
   return response.data;
 }
 
+
+
 export { uploadFile, getFiles };
