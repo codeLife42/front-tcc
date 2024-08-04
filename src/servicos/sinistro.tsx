@@ -16,13 +16,16 @@ async function patchSinistroCliente(idSinistro: String) {
   }
 }
 
-async function patchSituacaoSinistro(idSinistro: String) {
+async function patchSituacaoSinistro(
+  idSinistro: String,
+  statusDocumentacao: String
+) {
   console.log(idSinistro);
+  console.log(statusDocumentacao);
 
   const response = await sinistroAPI.patch(`/${idSinistro}`, {
-    params: {
-      id_sinistro: idSinistro,
-    },
+    id_sinistro: idSinistro,
+    status: statusDocumentacao,
   });
 
   console.log("Patch Situacao Sinistro:", response);

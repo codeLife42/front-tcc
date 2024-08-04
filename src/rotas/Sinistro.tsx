@@ -1,9 +1,11 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Header } from "../Components/Header";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getCliente } from "../servicos/cliente";
 import FileModal from "../Components/FileModal";
 import { patchSituacaoSinistro } from "../servicos/sinistro";
+import GlobalContext from "../Components/GlobalContext";
+import Swal from "sweetalert2";
 
 export function Sinistro() {
   const id = useParams();
@@ -25,6 +27,17 @@ export function Sinistro() {
 
   const [carregando, setCarregando] = useState(true);
 
+  //Valida se o botao pode ser habilitado ou nao
+  const [buttonDisable, setButtonDisable] = useState(false);
+
+  const { userType, setUserType } = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (clienteFiltrado.status === "Documentacao enviada") {
+      setButtonDisable(true);
+    }
+  });
+
   console.log(clienteFiltrado);
 
   // Função para alternar entre as abas
@@ -33,19 +46,51 @@ export function Sinistro() {
   };
 
   //Funcao para enviar o formulario
-  async function handleSendForm(idSinistro: String) {
-    const userConfirmed = window.confirm(
-      "Voce realmente deseja enviar para analise?"
-    );
+  async function handleSendForm(
+    idSinistro: String,
+    statusDocumentacao: String
+  ) {
+    if (userType === "user.banco") {
+      const userConfirmed = window.confirm(
+        "Voce realmente deseja enviar para analise?"
+      );
 
-    console.log("ID Sinistro: ", idSinistro);
+      console.log("ID Sinistro: ", idSinistro);
 
-    if (userConfirmed) {
-      const serverResponse = await patchSituacaoSinistro(idSinistro);
+      console.log("Status: ", statusDocumentacao);
 
-      alert(serverResponse);
+      if (userConfirmed) {
+        const serverResponse = await patchSituacaoSinistro(
+          idSinistro,
+          statusDocumentacao
+        );
 
-      //window.location.href = "http://localhost:5173/";
+        alert(serverResponse);
+
+        window.location.href = "http://localhost:5173/";
+      }
+    } else if (userType === "user.seguradora") {
+      Swal.fire({
+        title: "Escolha uma opção",
+        text: "Você pode escolher entre três opções.",
+        icon: "question",
+        showCancelButton: true,
+        showDenyButton: true,
+        confirmButtonText: "Opção 1",
+        denyButtonText: "Opção 2",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Ação para a opção 1
+          Swal.fire("Você escolheu a Opção 1!");
+        } else if (result.isDenied) {
+          // Ação para a opção 2
+          Swal.fire("Você escolheu a Opção 2!");
+        } else {
+          // Ação para o Cancelamento
+          Swal.fire("Você cancelou a operação.");
+        }
+      });
     }
   }
 
@@ -90,7 +135,8 @@ export function Sinistro() {
     setShowFileModal(false);
   };
 
-  if (!carregando) {
+  //User banco
+  if (!carregando && userType === "user.banco") {
     return (
       <div>
         <Header></Header>
@@ -144,6 +190,7 @@ export function Sinistro() {
                           onClick={() =>
                             openFileModal("certidao-obito", "salvar-arquivos")
                           }
+                          disabled={buttonDisable}
                         >
                           Selecionar Arquivo
                         </button>
@@ -172,6 +219,7 @@ export function Sinistro() {
                           onClick={() =>
                             openFileModal("id-sinistrado", "salvar-arquivos")
                           }
+                          disabled={buttonDisable}
                         >
                           Selecionar Arquivo
                         </button>
@@ -203,6 +251,7 @@ export function Sinistro() {
                               "salvar-arquivos"
                             )
                           }
+                          disabled={buttonDisable}
                         >
                           Selecionar Arquivo
                         </button>
@@ -249,6 +298,7 @@ export function Sinistro() {
                           onClick={() =>
                             openFileModal("id-beneficiario", "salvar-arquivos")
                           }
+                          disabled={buttonDisable}
                         >
                           Selecionar Arquivo
                         </button>
@@ -280,6 +330,7 @@ export function Sinistro() {
                               "salvar-arquivos"
                             )
                           }
+                          disabled={buttonDisable}
                         >
                           Selecionar Arquivo
                         </button>
@@ -329,10 +380,233 @@ export function Sinistro() {
                               "salvar-arquivos"
                             )
                           }
+                          disabled={buttonDisable}
                         >
                           Selecionar Arquivo
                         </button>
                       </td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal(
+                              "documentacao-complementar",
+                              "exibir-arquivos"
+                            )
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </form>
+          <button
+            onClick={() =>
+              handleSendForm(
+                clienteFiltrado.id_sinistro,
+                "Documentacao enviada"
+              )
+            }
+            disabled={buttonDisable}
+          >
+            Enviar para análise
+          </button>
+        </div>
+        <div>
+          <Link to="/novo-sinistro">
+            <button>Voltar</button>
+          </Link>
+        </div>
+
+        <FileModal
+          showModal={showFileModal}
+          onClose={closeFileModal}
+          onFileSelect={handleFileSelection}
+          documentType={documentType}
+          idSinistro={idSinistro}
+          modalTipo={modalTipo}
+        />
+      </div>
+    );
+
+    //User seguradora
+  } else if (!carregando && userType === "user.seguradora") {
+    return (
+      <div>
+        <Header></Header>
+        <div>
+          <div>
+            <h3>Sinistro - {clienteFiltrado.nome}</h3>
+          </div>
+          <div>
+            <p>DOCUMENTAÇÃO</p>
+          </div>
+          <form action="#">
+            <div className="App">
+              <div className="tabs">
+                <button
+                  className={activeTab === "aba1" ? "active" : ""}
+                  onClick={() => handleTabClick("aba1")}
+                >
+                  Documentação Sinistro
+                </button>
+                <button
+                  className={activeTab === "aba2" ? "active" : ""}
+                  onClick={() => handleTabClick("aba2")}
+                >
+                  Documentação Beneficiário
+                </button>
+                <button
+                  className={activeTab === "aba3" ? "active" : ""}
+                  onClick={() => handleTabClick("aba3")}
+                >
+                  Documentação complementar
+                </button>
+              </div>
+
+              {activeTab === "aba1" && (
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>Documento</th>
+                      <th>Data Emissao</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Certidão de óbito</td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal("certidao-obito", "exibir-arquivos")
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Documentação identificação sinistrado</td>
+
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          type="link"
+                          href="#"
+                          onClick={() =>
+                            openFileModal("id-sinistrado", "exibir-arquivos")
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Declaração herdeiros legais</td>
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal(
+                              "declaracao-herdeiros",
+                              "exibir-arquivos"
+                            )
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+
+              {activeTab === "aba2" && (
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>Documento</th>
+                      <th>Data Emissao</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Documento identificação beneficiário</td>
+
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal("id-beneficiario", "exibir-arquivos")
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Comprovante de endereço</td>
+
+                      <td>
+                        <input type="date" />
+                      </td>
+                      <td>
+                        <a
+                          href="#"
+                          type="Link"
+                          onClick={() =>
+                            openFileModal(
+                              "comprovante-endereco",
+                              "exibir-arquivos"
+                            )
+                          }
+                        >
+                          Exibir informações
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+
+              {activeTab === "aba3" && (
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>Documento</th>
+                      <th>Data Emissao</th>
+                      <th>Detalhes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Documentação complementar</td>
+
                       <td>
                         <input type="date" />
                       </td>
