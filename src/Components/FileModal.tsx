@@ -20,7 +20,6 @@ const FileModal = ({
   async function handleGetFiles(idSinistro: String, documentType: String) {
     setCarregando(true);
 
-    console.log(documentType);
 
     const arquivosResponse = await getFiles(idSinistro, documentType);
 
@@ -51,7 +50,6 @@ const FileModal = ({
   }
 
   useEffect(() => {
-    console.log("rodando...");
     console.log(modalTipo);
     if (modalTipo === "exibir-arquivos") {
       handleGetFiles(idSinistro, documentType);

@@ -8,7 +8,6 @@ export function Header() {
   const { userType, setUserType } = useContext(GlobalContext);
 
   useEffect(() => {
-    console.log(userType);
   }, [userType]);
 
   const handleChange = (event: any) => {

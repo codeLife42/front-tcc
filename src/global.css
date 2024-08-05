@@ -1,35 +1,146 @@
-:root{
-    --white: #FFFFFF;
-    --blue-500: #0094FF;
-    --blue-1000: #5A80FB;
-    --gray-500: #EDEDED;
-    --purple-500: #936FFA
+:root {
+  --white: #ffffff;
+  --blue-500: #0094ff;
+  --blue-1000: #5a80fb;
+  --gray-500: #ededed;
+  --purple-500: #936ffa;
 }
 
-:focus{
-    outline: transparent;
-    box-shadow: 0 0 0 2px var(--purple-500);
+:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--purple-500);
 }
 
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background: var(--white);
-    color: var(--gray-300);
-    -webkit-font-smoothing: antialiased;
+body {
+  background: var(--white);
+  color: var(--gray-300);
+  -webkit-font-smoothing: antialiased;
 }
 
-body, input, textarea, button{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
+body,
+input,
+textarea,
+button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
-.buttonNovo{
-    background-color: red;
+.buttonNovo {
+  background-color: red;
 }
 
+.customButton {
+  background-color: #936ffa;
+  color: white;
+  border: none;
+  padding: 50px 100px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 3rem;
+  margin-left: 5rem;
+}
+
+.customButton:hover {
+  background-color: #7b5ec9; /* Um tom mais escuro para o efeito hover */
+}
+
+.customButton:focus {
+  outline: none; /* Remove o contorno de foco padrão */
+  box-shadow: 0 0 0 3px rgba(147, 111, 250, 0.5); /* Adiciona um contorno de foco personalizado */
+}
+
+.positionTable {
+  position: absolute;
+  top: 19rem;
+  right: 15rem;
+  transform: translateY(-50%);
+  margin-top: 100px;
+  margin-right: 50px;
+}
+.positionTable select {
+  right: 50px;
+  padding: 2px 10px 7px 2px;
+  border-radius: 5px;
+  background: var(--white);
+  box-shadow: 0 1px 3px -2px #9098a9;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+}
+/* Estiliza a tabela */
+.styledTable {
+  width: 80%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: var(--white);
+  border: 1px solid #ddd;
+  margin-left: 1rem;
+  margin-right: 4rem;
+  margin-bottom: 2rem;
+  margin: 0 auto;
+}
+.styledTable th,
+.styledTable td {
+  padding: 12px 15px;
+  text-align: left;
+}
+.styledTable th {
+  background-color: var(--white);
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+.styledTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.styledTable tbody tr:hover {
+  background-color: var(--white);
+}
+
+.searchInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.backButton {
+  display: block;
+  width: 80%; /* Correspondente à largura da tabela */
+  max-width: 100%;
+  background-color: #936ffa;
+  color: white;
+  border: none;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto; /* Centraliza o botão horizontalmente */
+  margin-top: 1rem; /* Espaçamento superior */
+  margin-bottom: 1rem; /* Espaçamento inferior */
+  transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #7b5ec9;
+}
+
+.backButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(147, 111, 250, 0.5);
+}

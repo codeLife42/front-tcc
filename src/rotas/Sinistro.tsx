@@ -30,13 +30,28 @@ export function Sinistro() {
   //Valida se o botao pode ser habilitado ou nao
   const [buttonDisable, setButtonDisable] = useState(false);
 
+  const [optionChoose, setOptionChoose] = useState<String>("Aprovado");
+
   const { userType, setUserType } = useContext(GlobalContext);
 
   useEffect(() => {
     if (clienteFiltrado.status === "Documentacao enviada") {
       setButtonDisable(true);
     }
-  });
+    if (clienteFiltrado.status === "Documentacao aprovada") {
+      setButtonDisable(true);
+    }
+    const updateSinistro = async () => {
+      if (optionChoose !== "Aprovado") {
+        const serverResponse = await patchSituacaoSinistro(
+          clienteFiltrado.id_sinistro,
+          optionChoose
+        );
+        window.location.href = "http://localhost:5173/";
+      }
+    };
+    if (optionChoose !== "Aprovado") updateSinistro();
+  }, [optionChoose, clienteFiltrado]);
 
   console.log(clienteFiltrado);
 
@@ -51,46 +66,56 @@ export function Sinistro() {
     statusDocumentacao: String
   ) {
     if (userType === "user.banco") {
-      const userConfirmed = window.confirm(
-        "Voce realmente deseja enviar para analise?"
+      //const userConfirmed = window.confirm(
+      //  "Voce realmente deseja enviar para analise?"
+      //);
+
+      const result = await Swal.fire({
+        title: "Voce realmente deseja enviar para analise?",
+        text: "confirme sua solicitacao",
+        icon: "question",
+        showCancelButton: true,
+        showDenyButton: false,
+        confirmButtonText: "Enviar documentação",
+        cancelButtonText: "Cancelar",
+      });
+
+      const serverResponse = await patchSituacaoSinistro(
+        idSinistro,
+        statusDocumentacao
       );
 
-      console.log("ID Sinistro: ", idSinistro);
-
-      console.log("Status: ", statusDocumentacao);
-
-      if (userConfirmed) {
-        const serverResponse = await patchSituacaoSinistro(
-          idSinistro,
-          statusDocumentacao
-        );
-
-        alert(serverResponse);
-
-        window.location.href = "http://localhost:5173/";
+      if (result.isConfirmed) {
+        Swal.fire("Resposta Enviada");
+        setOptionChoose("Documentacao enviada");
+      } else {
+        // Ação para o Cancelamento
+        Swal.fire("Você cancelou a operação.");
+        return;
       }
     } else if (userType === "user.seguradora") {
-      Swal.fire({
-        title: "Escolha uma opção",
-        text: "Você pode escolher entre três opções.",
+      const result = await Swal.fire({
+        title: "Avaliação de documentação",
+        text: "Escolha uma das opções abaixo",
         icon: "question",
         showCancelButton: true,
         showDenyButton: true,
-        confirmButtonText: "Opção 1",
-        denyButtonText: "Opção 2",
+        confirmButtonText: "Aprovar documentação",
+        denyButtonText: "Rejeitar documentação",
         cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Ação para a opção 1
-          Swal.fire("Você escolheu a Opção 1!");
-        } else if (result.isDenied) {
-          // Ação para a opção 2
-          Swal.fire("Você escolheu a Opção 2!");
-        } else {
-          // Ação para o Cancelamento
-          Swal.fire("Você cancelou a operação.");
-        }
       });
+
+      if (result.isConfirmed) {
+        Swal.fire("Resposta Enviada");
+        setOptionChoose("Documentacao aprovada");
+      } else if (result.isDenied) {
+        Swal.fire("Resposta Enviada");
+        setOptionChoose("Documentacao rejeitada");
+      } else {
+        // Ação para o Cancelamento
+        Swal.fire("Você cancelou a operação.");
+        return;
+      }
     }
   }
 
@@ -630,8 +655,15 @@ export function Sinistro() {
               )}
             </div>
           </form>
-          <button onClick={() => handleSendForm(clienteFiltrado.id_sinistro)}>
-            Enviar para análise
+          <button
+            onClick={() =>
+              handleSendForm(
+                clienteFiltrado.id_sinistro,
+                "Avaliacao documentacao"
+              )
+            }
+          >
+            Responder solicitação
           </button>
         </div>
         <div>

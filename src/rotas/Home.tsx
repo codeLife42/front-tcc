@@ -11,7 +11,6 @@ export function Home() {
   const [esconderBotao, setEsconderBotao] = useState(false);
 
   useEffect(() => {
-    console.log("Esconder Botao: ", userType);
     if (userType === "user.banco") {
       setEsconderBotao(false);
     } else if (userType === "user.seguradora") {
@@ -24,7 +23,9 @@ export function Home() {
       <Header />
 
       <Link to="/novo-sinistro">
-        <button hidden={esconderBotao}>Novo Sinistro</button>
+        <button className="customButton" hidden={esconderBotao}>
+          Novo Sinistro
+        </button>
       </Link>
       <Table></Table>
     </div>

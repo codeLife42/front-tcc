@@ -1,18 +1,18 @@
 /* Define a posicao da tabela */
-.positionTable{
+.positionTable {
   position: absolute;
-  top: 15rem;
+  top: 19rem;
   right: 15rem;
   transform: translateY(-50%);
-  margin-top: 100px; 
+  margin-top: 100px;
   margin-right: 50px;
 }
-.positionTable select{
+.positionTable select {
   right: 50px;
   padding: 2px 10px 7px 2px;
   border-radius: 5px;
   background: var(--white);
-  box-shadow: 0 1px 3px -2px #9098A9;
+  box-shadow: 0 1px 3px -2px #9098a9;
   cursor: pointer;
   font-family: inherit;
   font-size: 10px;
@@ -24,7 +24,6 @@
   border-spacing: 0;
   background-color: var(--white);
   border: 1px solid #ddd;
-  
 }
 .styledTable th,
 .styledTable td {
@@ -61,12 +60,12 @@
 }
 .pagination label:hover {
   background-color: var(--blue-500);
-  color:var(--white);
+  color: var(--white);
 }
 /* Estilizacao busca */
 .searchContainer {
   text-align: left;
-  margin-bottom: 0.500rem;
+  margin-bottom: 0.5rem;
 }
 
 .searchInput {

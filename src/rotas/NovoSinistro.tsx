@@ -57,8 +57,9 @@ export function NovoSinistro() {
         placeholder="Pesquisar cliente..."
         value={pesquisa}
         onChange={handlePesquisaChange}
+        className="searchInput"
       />
-      <table border="1">
+      <table className="styledTable">
         <thead>
           <tr>
             <th>CPF</th>
@@ -98,7 +99,7 @@ export function NovoSinistro() {
         </tbody>
       </table>
       <Link to="/">
-        <button>Voltar</button>
+        <button className="backButton">Voltar</button>
       </Link>
     </div>
   );
