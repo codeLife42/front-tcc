@@ -51,12 +51,12 @@ button {
 }
 
 .customButton:hover {
-  background-color: #7b5ec9; /* Um tom mais escuro para o efeito hover */
+  background-color: #7b5ec9;
 }
 
 .customButton:focus {
-  outline: none; /* Remove o contorno de foco padrão */
-  box-shadow: 0 0 0 3px rgba(147, 111, 250, 0.5); /* Adiciona um contorno de foco personalizado */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(147, 111, 250, 0.5);
 }
 
 .positionTable {
@@ -113,13 +113,13 @@ button {
   border-radius: 4px;
   margin-right: 5px;
   margin-top: 1rem;
-  margin-left: 1rem;
+  margin-left: 12rem;
   margin-bottom: 1rem;
 }
 
 .backButton {
   display: block;
-  width: 80%; /* Correspondente à largura da tabela */
+  width: 80%;
   max-width: 100%;
   background-color: #936ffa;
   color: white;
@@ -130,9 +130,9 @@ button {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
-  margin: 0 auto; /* Centraliza o botão horizontalmente */
-  margin-top: 1rem; /* Espaçamento superior */
-  margin-bottom: 1rem; /* Espaçamento inferior */
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   transition: background-color 0.3s ease;
 }
 
@@ -143,4 +143,112 @@ button {
 .backButton:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(147, 111, 250, 0.5);
+}
+
+.novoSinistroButton {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.novoSinistroButton:hover {
+  background-color: darkgreen;
+}
+
+.pagination {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 10px;
+}
+
+.pagination button {
+  flex: 1;
+  background-color: #e0e0e0;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.pagination button:hover {
+  background-color: #d0d0d0;
+}
+.pagination button.active {
+  background-color: #5a80fb;
+  color: white;
+}
+
+.cabecalho {
+  max-width: 80%;
+  margin-left: 12rem;
+  margin-top: 1rem;
+}
+.selecionarArquivoButton {
+  background-color: #936ffa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between; /* Distribui os botões aos extremos */
+  align-items: center; /* Alinha verticalmente no centro */
+  margin-top: 20px; /* Espaçamento acima do contêiner */
+  margin-bottom: 20px; /* Espaçamento abaixo do contêiner */
+}
+
+.backButtonForm {
+  margin-left: 12rem;
+  background-color: gray;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sendButton {
+  margin-right: 12rem;
+  background-color: #936ffa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sendButton:disabled {
+  margin-right: 12rem;
+  background-color: gray;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.selecionarArquivoButton:disabled {
+  background-color: gray;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
 }

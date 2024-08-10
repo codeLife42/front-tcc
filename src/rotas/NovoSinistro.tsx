@@ -87,6 +87,7 @@ export function NovoSinistro() {
                             cliente.sinistro_id
                           )
                         }
+                        className="novoSinistroButton"
                       >
                         Novo Sinistro
                       </button>

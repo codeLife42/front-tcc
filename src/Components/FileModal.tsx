@@ -20,7 +20,6 @@ const FileModal = ({
   async function handleGetFiles(idSinistro: String, documentType: String) {
     setCarregando(true);
 
-
     const arquivosResponse = await getFiles(idSinistro, documentType);
 
     setArquivos(arquivosResponse);
@@ -76,20 +75,24 @@ const FileModal = ({
             <span className={styles.close} onClick={onClose}>
               &times;
             </span>
-            <h2>Selecionar Arquivo {documentType.toUpperCase()}</h2>
-            <p>{idSinistro}</p>
-            <input type="file" required onChange={handleFileSelection} />
-            <button
-              type="submit"
-              onClick={() =>
-                handleSaveFile(file as any, documentType, idSinistro)
-              }
-            >
-              Salvar
-            </button>
-            <button className={styles.closeButton} onClick={onClose}>
-              X
-            </button>
+            <h2>Selecionar Arquivo </h2>
+            <div className={styles["input-button-container"]}>
+              <input type="file" required onChange={handleFileSelection} />
+            </div>
+            <div className={styles.buttonContainer}>
+              <button className={styles.closeButton} onClick={onClose}>
+                X
+              </button>
+              <button
+                className={styles.saveButton}
+                type="submit"
+                onClick={() =>
+                  handleSaveFile(file as any, documentType, idSinistro)
+                }
+              >
+                Salvar
+              </button>
+            </div>
           </div>
         </div>
       </form>

@@ -6,6 +6,7 @@ import FileModal from "../Components/FileModal";
 import { patchSituacaoSinistro } from "../servicos/sinistro";
 import GlobalContext from "../Components/GlobalContext";
 import Swal from "sweetalert2";
+import "../global.css";
 
 export function Sinistro() {
   const id = useParams();
@@ -166,29 +167,26 @@ export function Sinistro() {
       <div>
         <Header></Header>
         <div>
-          <div>
+          <div className="cabecalho">
             <h3>Sinistro - {clienteFiltrado.nome}</h3>
-          </div>
-          <div>
-            <p>DOCUMENTAÇÃO</p>
           </div>
           <form action="#">
             <div className="App">
-              <div className="tabs">
+              <div className="tabs pagination">
                 <button
-                  className={activeTab === "aba1" ? "active" : ""}
+                  className={`{activeTab === "aba1" ? "active" : ""} `}
                   onClick={() => handleTabClick("aba1")}
                 >
                   Documentação Sinistro
                 </button>
                 <button
-                  className={activeTab === "aba2" ? "active" : ""}
+                  className={`{activeTab === "aba2" ? "active" : ""} `}
                   onClick={() => handleTabClick("aba2")}
                 >
                   Documentação Beneficiário
                 </button>
                 <button
-                  className={activeTab === "aba3" ? "active" : ""}
+                  className={`{activeTab === "aba3" ? "active" : ""} `}
                   onClick={() => handleTabClick("aba3")}
                 >
                   Documentação complementar
@@ -196,12 +194,11 @@ export function Sinistro() {
               </div>
 
               {activeTab === "aba1" && (
-                <table border="1">
+                <table className="styledTable">
                   <thead>
                     <tr>
                       <th>Documento</th>
                       <th>Arquivo</th>
-                      <th>Data Emissao</th>
                       <th>Detalhes</th>
                     </tr>
                   </thead>
@@ -216,12 +213,10 @@ export function Sinistro() {
                             openFileModal("certidao-obito", "salvar-arquivos")
                           }
                           disabled={buttonDisable}
+                          className="selecionarArquivoButton"
                         >
                           Selecionar Arquivo
                         </button>
-                      </td>
-                      <td>
-                        <input type="date" />
                       </td>
                       <td>
                         <a
@@ -245,12 +240,10 @@ export function Sinistro() {
                             openFileModal("id-sinistrado", "salvar-arquivos")
                           }
                           disabled={buttonDisable}
+                          className="selecionarArquivoButton"
                         >
                           Selecionar Arquivo
                         </button>
-                      </td>
-                      <td>
-                        <input type="date" />
                       </td>
                       <td>
                         <a
@@ -277,13 +270,12 @@ export function Sinistro() {
                             )
                           }
                           disabled={buttonDisable}
+                          className="selecionarArquivoButton"
                         >
                           Selecionar Arquivo
                         </button>
                       </td>
-                      <td>
-                        <input type="date" />
-                      </td>
+
                       <td>
                         <a
                           href="#"
@@ -304,12 +296,11 @@ export function Sinistro() {
               )}
 
               {activeTab === "aba2" && (
-                <table border="1">
+                <table className="styledTable">
                   <thead>
                     <tr>
                       <th>Documento</th>
                       <th>Arquivo</th>
-                      <th>Data Emissao</th>
                       <th>Detalhes</th>
                     </tr>
                   </thead>
@@ -324,12 +315,10 @@ export function Sinistro() {
                             openFileModal("id-beneficiario", "salvar-arquivos")
                           }
                           disabled={buttonDisable}
+                          className="selecionarArquivoButton"
                         >
                           Selecionar Arquivo
                         </button>
-                      </td>
-                      <td>
-                        <input type="date" />
                       </td>
                       <td>
                         <a
@@ -356,12 +345,10 @@ export function Sinistro() {
                             )
                           }
                           disabled={buttonDisable}
+                          className="selecionarArquivoButton"
                         >
                           Selecionar Arquivo
                         </button>
-                      </td>
-                      <td>
-                        <input type="date" />
                       </td>
                       <td>
                         <a
@@ -383,12 +370,11 @@ export function Sinistro() {
               )}
 
               {activeTab === "aba3" && (
-                <table border="1">
+                <table className="styledTable">
                   <thead>
                     <tr>
                       <th>Documento</th>
                       <th>Arquivo</th>
-                      <th>Data Emissao</th>
                       <th>Detalhes</th>
                     </tr>
                   </thead>
@@ -406,12 +392,10 @@ export function Sinistro() {
                             )
                           }
                           disabled={buttonDisable}
+                          className="selecionarArquivoButton"
                         >
                           Selecionar Arquivo
                         </button>
-                      </td>
-                      <td>
-                        <input type="date" />
                       </td>
                       <td>
                         <a
@@ -433,6 +417,11 @@ export function Sinistro() {
               )}
             </div>
           </form>
+        </div>
+        <div className="buttonContainer">
+          <Link to="/">
+            <button className="backButtonForm">Voltar</button>
+          </Link>
           <button
             onClick={() =>
               handleSendForm(
@@ -441,14 +430,10 @@ export function Sinistro() {
               )
             }
             disabled={buttonDisable}
+            className="sendButton"
           >
             Enviar para análise
           </button>
-        </div>
-        <div>
-          <Link to="/novo-sinistro">
-            <button>Voltar</button>
-          </Link>
         </div>
 
         <FileModal
@@ -468,15 +453,12 @@ export function Sinistro() {
       <div>
         <Header></Header>
         <div>
-          <div>
+          <div className="cabecalho">
             <h3>Sinistro - {clienteFiltrado.nome}</h3>
-          </div>
-          <div>
-            <p>DOCUMENTAÇÃO</p>
           </div>
           <form action="#">
             <div className="App">
-              <div className="tabs">
+              <div className="tabs pagination">
                 <button
                   className={activeTab === "aba1" ? "active" : ""}
                   onClick={() => handleTabClick("aba1")}
@@ -498,20 +480,17 @@ export function Sinistro() {
               </div>
 
               {activeTab === "aba1" && (
-                <table border="1">
+                <table className="styledTable">
                   <thead>
                     <tr>
                       <th>Documento</th>
-                      <th>Data Emissao</th>
                       <th>Detalhes</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>Certidão de óbito</td>
-                      <td>
-                        <input type="date" />
-                      </td>
+
                       <td>
                         <a
                           href="#"
@@ -528,9 +507,6 @@ export function Sinistro() {
                       <td>Documentação identificação sinistrado</td>
 
                       <td>
-                        <input type="date" />
-                      </td>
-                      <td>
                         <a
                           type="link"
                           href="#"
@@ -544,9 +520,6 @@ export function Sinistro() {
                     </tr>
                     <tr>
                       <td>Declaração herdeiros legais</td>
-                      <td>
-                        <input type="date" />
-                      </td>
                       <td>
                         <a
                           href="#"
@@ -567,21 +540,16 @@ export function Sinistro() {
               )}
 
               {activeTab === "aba2" && (
-                <table border="1">
+                <table className="styledTable">
                   <thead>
                     <tr>
                       <th>Documento</th>
-                      <th>Data Emissao</th>
                       <th>Detalhes</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>Documento identificação beneficiário</td>
-
-                      <td>
-                        <input type="date" />
-                      </td>
                       <td>
                         <a
                           href="#"
@@ -596,10 +564,6 @@ export function Sinistro() {
                     </tr>
                     <tr>
                       <td>Comprovante de endereço</td>
-
-                      <td>
-                        <input type="date" />
-                      </td>
                       <td>
                         <a
                           href="#"
@@ -620,21 +584,16 @@ export function Sinistro() {
               )}
 
               {activeTab === "aba3" && (
-                <table border="1">
+                <table className="styledTable">
                   <thead>
                     <tr>
                       <th>Documento</th>
-                      <th>Data Emissao</th>
                       <th>Detalhes</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>Documentação complementar</td>
-
-                      <td>
-                        <input type="date" />
-                      </td>
                       <td>
                         <a
                           href="#"
@@ -655,21 +614,23 @@ export function Sinistro() {
               )}
             </div>
           </form>
-          <button
-            onClick={() =>
-              handleSendForm(
-                clienteFiltrado.id_sinistro,
-                "Avaliacao documentacao"
-              )
-            }
-          >
-            Responder solicitação
-          </button>
-        </div>
-        <div>
-          <Link to="/novo-sinistro">
-            <button>Voltar</button>
-          </Link>
+          <div className="buttonContainer">
+            <Link to="/novo-sinistro">
+              <button className="backButtonForm">Voltar</button>
+            </Link>
+
+            <button
+              onClick={() =>
+                handleSendForm(
+                  clienteFiltrado.id_sinistro,
+                  "Avaliacao documentacao"
+                )
+              }
+              className="sendButton"
+            >
+              Responder solicitação
+            </button>
+          </div>
         </div>
 
         <FileModal
